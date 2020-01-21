@@ -6,6 +6,7 @@
 #
 
 import os
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
 import io
 from logging import getLogger
 import numpy as np
@@ -46,6 +47,7 @@ def load_dictionary(path, word2id1, word2id2):
     Return a torch tensor of size (n, 2) where n is the size of the
     loader dictionary, and sort it by source word frequency.
     """
+    print(path)
     assert os.path.isfile(path)
 
     pairs = []
@@ -90,7 +92,7 @@ def get_word_translation_accuracy(lang1, word2id1, emb1, lang2, word2id2, emb2, 
     evaluate the translation accuracy using the precision@k.
     """
     if dico_eval == 'default':
-        path = os.path.join(DIC_EVAL_PATH, '%s-%s.5000-6500.txt' % (lang1, lang2))
+        path = os.path.join(DIC_EVAL_PATH, '%s-%s.0-5000.txt' % (lang1, lang2))
     else:
         path = dico_eval
     dico = load_dictionary(path, word2id1, word2id2)
